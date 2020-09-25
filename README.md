@@ -19,6 +19,18 @@ $ npm run dev
 $ open http://localhost:7001/
 ```
 
+### add install 
+
+```bash
+$ npm install egg-mongoose -S
+$ npm install shortid -S
+$ npm install egg-validate -S
+$ npm install egg-cors -S
+$ npm install egg-jwt -S
+
+```
+
+
 ### Deploy
 
 ```bash
