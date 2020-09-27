@@ -4,7 +4,10 @@ module.exports = app => {
   const Schema = mongoose.Schema;
   const AdminListSchema = new Schema({
     id:{ type: String, default : shortid.generate, required:true},
-    userName: { type: String , unique:true },
+    username: { type: String , unique:true },
+    avatar: { type: String },
+    roles:{ type:Array },
+    introduction:{ type:String },
     type: { type:Number , default: 0},
     password: { type: String },
     loginIp:{ type:String },
