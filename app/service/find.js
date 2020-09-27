@@ -1,13 +1,13 @@
 'use strict';
 const Service = require('egg').Service;
 class FindService extends Service {
-  async findOne(params,rule,data) {
+  async findOne(params,rule,model) {
     let errors = this.app.validator.validate(rule,params);
     if(errors && errors.length > 0){
-      return {code:201, msg:'params is error'}
+      return {code:20001, msg:'params is error'}
     }else{
-      let res = await this.ctx.model[data].findOne(params,{_id:false});
-      return res;
+      let res = await this.ctx.model[model].findOne(params,{_id:false,password:false});
+      return {code:20000, data:res, msg:'success'}
     }
   }
 }
