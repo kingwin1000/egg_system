@@ -1,0 +1,9 @@
+role  {"code":20000,"msg":"Success!","data":{"total":3,"list":[{"id":327,"name":"测试guo","status":1,"remark":"这是一个测试角色","create_time":1592532838,"update_time":1592532838},{"id":326,"name":"develop","status":0,"remark":"开发","create_time":1592472664,"update_time":1600998944},{"id":324,"name":"超级管理员","status":1,"remark":"","create_time":1592465506,"update_time":1592465506}]},"timestamp":1601198786}
+
+
+
+{"code":20000,"msg":"Success!","data":{"total":5,"list":[{"id":181,"username":"xiaoyu","status":1,"last_login_ip":"117.107.209.145","last_login_time":1592963851,"create_time":1592880943,"roles":[326,327]},{"id":176,"username":"liusen","status":1,"last_login_ip":"117.107.209.145","last_login_time":1592812353,"create_time":1592546394,"roles":[326,327]},{"id":175,"username":"guohaichao","status":1,"last_login_ip":"117.107.209.145","last_login_time":1592978745,"create_time":1592533457,"roles":[327]},{"id":174,"username":"songzhipeng","status":1,"last_login_ip":"117.107.209.145","last_login_time":1592906418,"create_time":1592472777,"roles":[326]},{"id":173,"username":"admin","status":1,"last_login_ip":"117.107.209.145","last_login_time":1601198774,"create_time":1592465506,"roles":[324]}]},"timestamp":1601198861}
+
+
+
+
