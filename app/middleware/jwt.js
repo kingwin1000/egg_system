@@ -3,11 +3,12 @@ module.exports = (options, app) => {
     const token = ctx.request.header['x-token'];
     if(token){
       try {
-        let decode = ctx.app.jwt.verify(token, options.secret);   
+        let decode = ctx.app.jwt.verify(token, options.secret); 
         ctx.state.adminInfo = { username:decode.username, password:decode.password }
         await next();
       }catch(error){
-        ctx.body = {code:'401',message: 'token is err'};
+        console.log('22222222',error)
+        ctx.body = {code:'401',message: 'system is err'};
         return;
       }
     }else{

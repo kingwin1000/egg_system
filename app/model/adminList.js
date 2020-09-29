@@ -3,10 +3,10 @@ module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
   const AdminListSchema = new Schema({
-    id:{ type: String, default : shortid.generate, required:true},
-    username: { type: String , unique:true },
+    id:{ type: String, default : shortid.generate,  required:true},
+    username: { type: String, },
     avatar: { type: String },
-    roles:{ type:Array },
+    roles:[String],
     introduction:{ type:String },
     type: { type:Number , default: 0},
     password: { type: String },

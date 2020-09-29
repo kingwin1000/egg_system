@@ -8,5 +8,7 @@ module.exports = app => {
   router.post('/api/login', controller.adminList.login);
   router.get('/api/loginout',controller.adminList.loginout);
   router.get('/api/getInfo',jwt, controller.adminList.getInfo);
-	router.get('/api/menu',jwt, controller.menu.getMenu);
+  router.get('/api/menu',jwt, controller.menu.getMenu);
+  router.post('/api/menu',jwt, controller.menu.addMenu);
+  router.delete('/api/menu/:id',jwt, controller.menu.delMenu)
 };
