@@ -5,11 +5,12 @@ module.exports = app => {
 
   const MenuSchema = new Schema({
     id:{ type: String, default : shortid.generate, required:true},
-    menuName:{ type:String, required: true,min: [6, 'Too few eggs'],max: 12},
-    menuTitle:{ type:String, required: true,min: [6, 'Too few eggs'],max: 12},
+    menuName:{ type:String, required: true},
+    menuTitle:{ type:String, required: true},
     sortNo:{type:Number,max:100,default:0},
     hidden:{type:Boolean,default:false},
-    idPath:[String]
+    parentId: { type: String },
+    roles:[{ type: String}]
   },{versionKey: false});
   return mongoose.model('MenuModel', MenuSchema, 'menu');
 }
