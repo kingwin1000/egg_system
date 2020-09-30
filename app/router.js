@@ -10,5 +10,6 @@ module.exports = app => {
   router.get('/api/getInfo',jwt, controller.adminList.getInfo);
   router.get('/api/menu',jwt, controller.menu.getMenu);
   router.post('/api/menu',jwt, controller.menu.addMenu);
-  router.delete('/api/menu/:id',jwt, controller.menu.delMenu)
+  router.delete('/api/menu/:id',jwt, controller.menu.delMenu);
+  router.put('/api/menu/:id',jwt, controller.menu.updateMenu);
 };

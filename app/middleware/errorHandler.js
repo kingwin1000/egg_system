@@ -7,6 +7,7 @@ module.exports = () => {
       }
     } catch (err){
       status = err.status;
+      console.log('error',err)
       if(status === 500){
         ctx.body = { code:500, data:null, msg:'system is error'};
       }else if(status === 400){

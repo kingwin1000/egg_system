@@ -7,10 +7,11 @@ module.exports = app => {
     id:{ type: String, default : shortid.generate, required:true},
     menuName:{ type:String, required: true},
     menuTitle:{ type:String, required: true},
-    sortNo:{type:Number,max:100,default:0},
+    orderNo:{type:Number,default:0},
     hidden:{type:Boolean,default:false},
     parentId: { type: String },
-    roles:[{ type: String}]
+    roles:[{ type: String}],
+    pathIds:[{ type: String}],
   },{versionKey: false});
   return mongoose.model('MenuModel', MenuSchema, 'menu');
 }

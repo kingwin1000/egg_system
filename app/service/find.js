@@ -1,27 +1,34 @@
 'use strict';
 const Service = require('egg').Service;
 class FindService extends Service {
-  async findOne(params,rule,model) {
-    //let errors = this.app.validator.validate(rule,params);
-    //if(errors && errors.length > 0){
-    //  return {code:20001, msg:'params is error'}
-    //}else{
-      let res = await this.ctx.model[model].findOne(params,{_id:false,password:false});
+  async findOne( { param, rule }, model) {
+    var field = field ? field : {}; field._id = false; field.password = false;
+    var errors = '';
+    if( rule ){
+      errors = this.app.validator.validate(rule,param);
+    }
+    if(errors && errors.length > 0){
+      return {code:20002, data:null, msg:'params is error'} 
+    }else{
+      let res = await this.ctx.model[model].findOne(param,field);
       return {code:20000, data:res, msg:'success'}
-    //}
+    }
   };
-  async find(params,rule,model,options) {
-    //let errors = this.app.validator.validate(rule,params);
-    ///if(errors && errors.length > 0){
-    //  return {code:20001, msg:'params is error'}
-    //}else{
-      if(options){
-        var res = await this.ctx.model[model].find(params,{_id:false,password:false},{lean: true}).sort(options);
-      }else{
-        var res = await this.ctx.model[model].find(params,{_id:false,password:false});
-      }
+  async find( { param,rule,field, lean,sort },  model) {
+    var param = param ? param : {};
+    var field = field ? field : {}; field._id = false; field.password = false;
+    var lean = lean ? lean :{ lean :false};
+    var sort = sort ? sort : { orderNo:1 };
+    var errors = '';
+    if( rule ){
+      errors = this.app.validator.validate(rule,param);
+    }
+    if(errors && errors.length > 0){
+      return {code:20002, data:null, msg:'params is error'} 
+    }else{
+      var res = await this.ctx.model[model].find(param,field,lean).sort(sort);
       return {code:20000, data:res, msg:'success'}
-    //}      
+    }     
   } 
 }
 module.exports = FindService;

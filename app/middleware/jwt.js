@@ -7,7 +7,7 @@ module.exports = (options, app) => {
         ctx.state.adminInfo = { username:decode.username, password:decode.password }
         await next();
       }catch(error){
-        console.log('22222222',error)
+        console.log('jwt error ==>',error)
         ctx.body = {code:'401',message: 'system is err'};
         return;
       }
