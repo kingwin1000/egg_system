@@ -6,8 +6,8 @@ class MenuController extends Controller {
   async addMenu() {
     let params = {
       rule : {
-        menuName:{ type:'string',min:3,max:50 }, 
-        menuTitle:{type:'string',min:3,max:50 }
+        menuName:{ type:'string',min:3,max:50,required: true}, 
+        menuTitle:{type:'string',min:3,max:50,required: true}
       },
       param:this.ctx.request.body
     }

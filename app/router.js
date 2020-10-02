@@ -12,4 +12,8 @@ module.exports = app => {
   router.post('/api/menu',jwt, controller.menu.addMenu);
   router.delete('/api/menu/:id',jwt, controller.menu.delMenu);
   router.put('/api/menu/:id',jwt, controller.menu.updateMenu);
+
+  router.post('/api/adminRoles',jwt, controller.adminRoles.addRoles);
+  router.get('/api/adminRoles',jwt, controller.adminRoles.getRoles);
+  router.delete('/api/adminRoles/:id',jwt, controller.adminRoles.delRoles);
 };
