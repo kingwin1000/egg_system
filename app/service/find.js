@@ -26,10 +26,10 @@ class FindService extends Service {
     if(errors && errors.length > 0){
       return {code:20002, data:null, msg:'params is error'} 
     }else{
-      console.log(param);
       var res = await this.ctx.model[model].find(param,field,lean).sort(sort);
       return {code:20000, data:res, msg:'success'}
     }     
-  } 
+  };
+
 }
 module.exports = FindService;

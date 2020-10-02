@@ -16,4 +16,5 @@ module.exports = app => {
   router.post('/api/adminRoles',jwt, controller.adminRoles.addRoles);
   router.get('/api/adminRoles',jwt, controller.adminRoles.getRoles);
   router.delete('/api/adminRoles/:id',jwt, controller.adminRoles.delRoles);
+  router.put('/api/adminRoles/:id',jwt, controller.adminRoles.updateRoles);
 };

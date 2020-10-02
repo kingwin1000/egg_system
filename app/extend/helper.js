@@ -21,5 +21,12 @@ module.exports = {
       return node
     } 
     return tree;   
+  },
+  toDelNull(param){
+    for(let key in param){
+      if(param[key] == ''){
+        delete param[key];
+      }
+    }
   }
 }
