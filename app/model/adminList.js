@@ -4,14 +4,16 @@ module.exports = app => {
   const Schema = mongoose.Schema;
   const AdminListSchema = new Schema({
     id:{ type: String, default : shortid.generate,  required:true},
-    username: { type: String},
+    username: { type: String, unique: true, required:true},
+    password: { type: String },
     avatar: { type: String },
     roles:[String],
     introduction:{ type:String },
     type: { type:Number , default: 0},
-    password: { type: String },
+    status: { type:Number , default: 0},
     loginIp:{ type:String },
-    loginTime: {type: Date }
-  });
+    created: {type:Number, default:Date.now },
+    loginTime: {type:Number, default:Date.now}
+  }, {versionKey: false});
   return mongoose.model('AdminListModel', AdminListSchema, 'adminList');
 }

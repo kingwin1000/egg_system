@@ -16,7 +16,6 @@ class MenuController extends Controller {
   }
   async getMenu() {
     let params = {
-      field:{roles:false},
       sort:{ orderNo:1 }, 
       lean:{lean:true}
     }
@@ -44,7 +43,18 @@ class MenuController extends Controller {
     };
     let res = await this.service.update.updateOne(params,'Menu'); 
     this.ctx.body = res;
+  };
+  /**
+  async updateManyMenu(){
+    let _paramBody = this.ctx.request.body;
+    var params = {
+      query : { id: { $in : _paramBody.checkedKeys } },
+      changed : { $addToSet :{ roles :_paramBody.roleId}} 
+    }
+    let res = await this.service.update.updateMany(params,'Menu'); 
+    this.ctx.body = {code:20000, data:res, msg:'success'}
   }
+* */
 }
 
 module.exports = MenuController;
