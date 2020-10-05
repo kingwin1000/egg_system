@@ -28,4 +28,19 @@ module.exports = app => {
   router.delete('/api/resources/:id',jwt, controller.resources.delRes);
   router.post('/api/delManyRes',jwt, controller.resources.delManyRes);
   router.put('/api/resources/:id',jwt, controller.resources.updateRes);
+
+  router.post('/api/contentCategories',jwt, controller.contentCategories.addCate);
+  router.get('/api/contentCategories',jwt, controller.contentCategories.getCate);
+  router.delete('/api/contentCategories/:id',jwt, controller.contentCategories.delCate);
+  router.put('/api/contentCategories/:id',jwt, controller.contentCategories.updateCate);
+
+  router.post('/api/contentTags',jwt, controller.contentTags.addTag);
+  router.get('/api/contentTags',jwt, controller.contentTags.getTag);
+  router.delete('/api/contentTags/:id',jwt, controller.contentTags.delTag);
+  router.put('/api/contentTags/:id',jwt, controller.contentTags.updateTag);
+
+
+
+
+  router.post('/api/upload',jwt, controller.tools.upload);
 };
