@@ -39,6 +39,10 @@ module.exports = app => {
   router.delete('/api/contentTags/:id',jwt, controller.contentTags.delTag);
   router.put('/api/contentTags/:id',jwt, controller.contentTags.updateTag);
 
+  router.post('/api/content',jwt, controller.content.addContent);
+  //router.get('/api/contentTags',jwt, controller.contentTags.getTag);
+  //router.delete('/api/contentTags/:id',jwt, controller.contentTags.delTag);
+  //router.put('/api/contentTags/:id',jwt, controller.contentTags.updateTag);
 
 
 
