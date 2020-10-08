@@ -41,10 +41,15 @@ module.exports = app => {
 
   router.post('/api/content',jwt, controller.content.addContent);
   router.get('/api/content',jwt, controller.content.getContent);
-  //router.delete('/api/contentTags/:id',jwt, controller.contentTags.delTag);
-  //router.put('/api/contentTags/:id',jwt, controller.contentTags.updateTag);
+  router.delete('/api/content/:id',jwt, controller.content.delContent);
+  router.post('/api/delManyContent',jwt, controller.content.delManyContent);
+  router.put('/api/content/:id',jwt, controller.content.updateContent);
 
-
+  router.post('/api/channel',jwt, controller.channel.addChannel);  
+  router.get('/api/channel',jwt, controller.channel.getChannel);
+  router.delete('/api/channel/:id',jwt, controller.channel.delChannel);
+  router.put('/api/addChannelChild/:id',jwt, controller.channel.addChannelChild);
+  router.put('/api/addChannelSetting/:id',jwt, controller.channel.addChannelSetting);
 
   router.post('/api/upload',jwt, controller.tools.upload);
 };

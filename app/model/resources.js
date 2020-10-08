@@ -7,6 +7,7 @@ module.exports = app => {
     resName:{type:String, required:true},
     resType:{type:Number, default:0},
     resUrl:{type:String},
+    resText:{type:String},
     resUrlIds:[{ type: String}],
     resSize:{type:String, default:0},
     status:{type:Number, default:0},

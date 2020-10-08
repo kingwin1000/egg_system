@@ -35,6 +35,8 @@ class FindService extends Service {
     var sort = sort ? sort : { orderNo:1 };
     var field = field ? field : {}; field._id = false; field.password = false;
     var errors = '';
+    param.page = param.page ? param.page : 1;
+    param.pageSize = param.pageSize ? param.pageSize :20;
     var page = parseInt(param.page);
     var limit = parseInt(param.pageSize);
     var skip = (page-1)*limit
