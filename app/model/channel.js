@@ -22,7 +22,6 @@ module.exports = app => {
     created:{type:Number}
   })
   const LayoutSchema = new Schema({
-    _id:false,
     id:{type: String,  default : shortid.generate, required:true},
     type:{ type:Number, required: true, default:0},
     name:{ type:String, required: true},

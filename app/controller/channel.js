@@ -45,11 +45,21 @@ class ChannelController extends Controller {
     this.ctx.body = res;
   };
   async addChannelSetting(){
+
+    //console.log('11111111===>'QK5HjPjpDa Ecy5kSR4U8)
+    let params = {
+      query:{ id:'QK5HjPjpDa',layout: { id:'Ecy5kSR4U8'} },
+      //pushed:{ $push: { children : this.ctx.request.body}},
+    }  
+    let res = await this.service.update.updatePush2(params,'Channel');
+    /**
+    //QK5HjPjpDa "Ecy5kSR4U8" 
     let params = {
       query:this.ctx.params,
       param:this.ctx.request.body,
-      pushed:{ $push: { layout : this.ctx.request.body}},
-    }    
+      pushed:{ $push: {}},
+    }  
+     */  
   }
 }
 
