@@ -32,32 +32,40 @@ class ChannelController extends Controller {
     this.ctx.body = res;    
   };  
   async addChannelCate(){
+
+    console.log('11111','222222222')
+    this.ctx.body = '1111';
+    /**
     let params = {
       rule : {
         name:{ type:'string',min:3,max:50 ,required: true},
         title:{type:'string',required: true}
       },
+      query:this.ctx.params,
       param:this.ctx.request.body,
+      pushed:{ $push: { layout : this.ctx.request.body}},
     }
-    let res = await this.service.create.createOne(params,'ChannelCategory');
+    let res = await this.service.update.updatePush(params,'Channel');
     this.ctx.body = res;
+    * */
   };
-  async getChannelCate(){
-    let _query = this.ctx.query;
-    this.ctx.helper.toDelNull(_query);
+  async addChannelSetting(){
+
+    //console.log('11111111===>'QK5HjPjpDa Ecy5kSR4U8)
     let params = {
-      sort:{ orderNo:1 }, 
-      lean:{lean:true},
-      param:_query
-    } 
-    let res = await this.service.find.find(params,'ChannelCategory');
-    let data = this.ctx.helper.toTree(res.data);
-    res.data = data;
-    this.ctx.body = res;    
-  };  
-
-
-
+      query:{ id:'QK5HjPjpDa',layout: { id:'Ecy5kSR4U8'} },
+      //pushed:{ $push: { children : this.ctx.request.body}},
+    }  
+    let res = await this.service.update.updatePush2(params,'Channel');
+    /**
+    //QK5HjPjpDa "Ecy5kSR4U8" 
+    let params = {
+      query:this.ctx.params,
+      param:this.ctx.request.body,
+      pushed:{ $push: {}},
+    }  
+     */  
+  }
 }
 
 module.exports = ChannelController;
