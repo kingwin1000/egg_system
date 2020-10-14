@@ -55,9 +55,25 @@ class ChannelController extends Controller {
     res.data = data;
     this.ctx.body = res;    
   };  
-
-
-
+  async delChannelCate(){
+    let _paramUrl = this.ctx.params;
+    let res = await this.service.delete.delOne({ param:_paramUrl },'ChannelCategory');
+    this.ctx.body = res; 
+  };
+  async getChannelRes(){
+    let _query = this.ctx.query;
+    this.ctx.helper.toDelNull(_query);
+    if(_query.resName){
+      let reg = new RegExp(_query.resName,'i');
+      _query.resName = {$regex:reg}
+    }    
+    let params = {      
+      sort:{ created:-1 },
+      param:_query,
+    }
+    let res = await this.service.find.findByOrder(params,'Resources');  
+    this.ctx.body = res;  
+  }
 }
 
 module.exports = ChannelController;

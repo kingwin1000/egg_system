@@ -50,8 +50,11 @@ module.exports = app => {
   router.delete('/api/channel/:id',jwt, controller.channel.delChannel);
   router.post('/api/addChannelCate',jwt, controller.channel.addChannelCate);
   router.get('/api/getChannelCate',jwt,controller.channel.getChannelCate);
-
+  router.delete('/api/delChannelCate/:id',jwt, controller.channel.delChannelCate);
   //router.put('/api/addChannelSetting/:id',jwt, controller.channel.addChannelSetting);
+
+  router.get('/api/getChannelRes',jwt, controller.channel.getChannelRes);
+  
 
   router.post('/api/upload',jwt, controller.tools.upload);
 };
