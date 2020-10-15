@@ -66,13 +66,28 @@ class ChannelController extends Controller {
     if(_query.resName){
       let reg = new RegExp(_query.resName,'i');
       _query.resName = {$regex:reg}
-    }    
+    }
+    if(_query.channelCateId){
+      let res = await this.service.find.findOne({param:{id:_query.channelCateId}},'ChannelCategory');
+      _query.resData = res.data.resData;
+    }
     let params = {      
       sort:{ created:-1 },
       param:_query,
     }
     let res = await this.service.find.findByOrder(params,'Resources');  
     this.ctx.body = res;  
+  };
+  async setChannelCate(){
+    let _query = this.ctx.params; 
+    let _paramBody = this.ctx.request.body;
+    let params = {
+      query:_query,
+      changed:_paramBody
+    };
+    console.log('00000000000',params)
+    let res = await this.service.update.updateOne(params,'ChannelCategory'); 
+    this.ctx.body = res; 
   }
 }
 

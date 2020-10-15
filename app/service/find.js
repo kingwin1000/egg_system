@@ -65,8 +65,9 @@ class FindService extends Service {
     var page = parseInt(param.page);
     var limit = parseInt(param.pageSize);
     var skip = (page-1)*limit
-    delete param.page; 
-    delete param.pageSize;
+    //delete param.page; 
+    //delete param.pageSize;
+    console.log('=======>',param)
     if( rule ){
       errors = this.app.validator.validate(rule,param);
     } 
@@ -75,16 +76,35 @@ class FindService extends Service {
     }else{
       let res = await this.ctx.model[model].aggregate([
         {
-          $project:field,
-        }  
+          $project:field
+        },
+        {  
+          $addFields: {
+            sort : {
+              $indexOfArray: [
+                param.resData, "$id"
+              ]            
+            }
+          }
+        },        
+        {
+          $skip:skip
+        },
+        { 
+          $limit:limit
+        },
+        {
+          $sort: {
+            sort: -1
+          }        
+        }          
       ])
       /**
       let res = await this.ctx.model[model].find(param,field).limit(limit).skip(skip).sort(sort);
+      ** */
       let total = await this.ctx.model[model].count(param);
       let page = Math.ceil(total/limit);
       return {code:20000, totalNum:total, totalPage:page, data:res, msg:'success'}
-      ** */
-     return {code:20000,data:res, msg:'success'}   
     } 
   
   }
