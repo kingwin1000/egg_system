@@ -69,7 +69,7 @@ class ChannelController extends Controller {
     }
     if(_query.channelCateId){
       let res = await this.service.find.findOne({param:{id:_query.channelCateId}},'ChannelCategory');
-      _query.resData = res.data.resData;
+      _query.orderData = res.data.resData;
     }
     let params = {      
       sort:{ created:-1 },
@@ -78,6 +78,25 @@ class ChannelController extends Controller {
     let res = await this.service.find.findByOrder(params,'Resources');  
     this.ctx.body = res;  
   };
+  async getChannelContent(){
+    let _query = this.ctx.query;
+    this.ctx.helper.toDelNull(_query); 
+    if(_query.title){
+      let reg = new RegExp(_query.title,'i');
+      _query.title = {$regex:reg}
+    }       
+    if(_query.channelCateId){
+      let res = await this.service.find.findOne({param:{id:_query.channelCateId}},'ChannelCategory');
+      _query.orderData = res.data.contentData;
+    }
+    let params = {      
+      sort:{ created:-1 },
+      param:_query,
+    }        
+    let res = await this.service.find.findByOrder(params,'Content');  
+    this.ctx.body = res;
+
+  };
   async setChannelCate(){
     let _query = this.ctx.params; 
     let _paramBody = this.ctx.request.body;
@@ -85,7 +104,6 @@ class ChannelController extends Controller {
       query:_query,
       changed:_paramBody
     };
-    console.log('00000000000',params)
     let res = await this.service.update.updateOne(params,'ChannelCategory'); 
     this.ctx.body = res; 
   }

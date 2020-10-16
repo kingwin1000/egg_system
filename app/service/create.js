@@ -12,6 +12,7 @@ class CreateService extends Service {
       return {code:20002, data:null, msg:'params is error'} 
     }else{
       let res = await this.ctx.model[model].create(param);
+     // let abc = await this.ctx.model[model].updateOne({id:'entityId'},{$inc: { seq: 1});
       return {code:20000, data:res, msg:'success'} 
     }
   }

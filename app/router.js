@@ -55,6 +55,7 @@ module.exports = app => {
   //router.put('/api/addChannelSetting/:id',jwt, controller.channel.addChannelSetting);
 
   router.get('/api/getChannelRes',jwt, controller.channel.getChannelRes);
+  router.get('/api/getChannelContent',jwt, controller.channel.getChannelContent);
   
 
   router.post('/api/upload',jwt, controller.tools.upload);

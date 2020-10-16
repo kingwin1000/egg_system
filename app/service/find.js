@@ -75,38 +75,17 @@ class FindService extends Service {
       return {code:20002, data:null, msg:'params is error'} 
     }else{
       let res = await this.ctx.model[model].aggregate([
-        {
-          $project:field
-        },
-        {  
-          $addFields: {
-            sort : {
-              $indexOfArray: [
-                param.resData, "$id"
-              ]            
-            }
-          }
-        },        
-        {
-          $skip:skip
-        },
-        { 
-          $limit:limit
-        },
-        {
-          $sort: {
-            sort: -1
-          }        
-        }          
+        {  $project:field  },
+        {  $addFields: { sort : {  $indexOfArray: [ param.orderData, '$id' ] } } },        
+        {  $sort: { sort: -1 } },
+        {  $skip:skip  },
+        {  $limit:limit },           
       ])
-      /**
-      let res = await this.ctx.model[model].find(param,field).limit(limit).skip(skip).sort(sort);
-      ** */
-      let total = await this.ctx.model[model].count(param);
+      let total = await this.ctx.model[model].count();
       let page = Math.ceil(total/limit);
       return {code:20000, totalNum:total, totalPage:page, data:res, msg:'success'}
     } 
   
-  }
+  };
 }
 module.exports = FindService;

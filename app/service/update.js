@@ -36,15 +36,6 @@ class UpdateService extends Service {
       }
     }
   }
-  async updatePush2({ query,param,rule,pushed},model){
-    let res = await this.ctx.model[model].findOne({
-      'layout.id':'Ecy5kSR4U8'
-    })
-    var abc = res.layout.id('5f7f1b005c8bd82860bb68d3').children;
-   abc.populate({name:'11',title:'新增',type:0,orderNo:0,resData:[],contentData:[]});
-
-  }
-
 }
 
 module.exports = UpdateService;
