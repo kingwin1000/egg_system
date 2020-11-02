@@ -55,6 +55,10 @@ class FindService extends Service {
     } 
    return {code:20000,data:res, msg:'success'}   
   };
+  async findCount(model){
+    let total = await this.ctx.model[model].count();
+    return {code:20000,total:total, msg:'success'}  
+  };
   async findByOrder({param,rule,field,sort},model){
     var param = param ? param : {};
     var sort = sort ? sort : { orderNo:1 };
@@ -85,7 +89,6 @@ class FindService extends Service {
       let page = Math.ceil(total/limit);
       return {code:20000, totalNum:total, totalPage:page, data:res, msg:'success'}
     } 
-  
   };
 }
 module.exports = FindService;
