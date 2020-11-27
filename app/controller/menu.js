@@ -44,17 +44,21 @@ class MenuController extends Controller {
     let res = await this.service.update.updateOne(params,'Menu'); 
     this.ctx.body = res;
   };
-  /**
   async updateManyMenu(){
     let _paramBody = this.ctx.request.body;
     var params = {
-      query : { id: { $in : _paramBody.checkedKeys } },
+      query : {},
+      changed : { $pull :{ roles :_paramBody.roleId}}
+    }
+    await this.service.update.updateMany(params,'Menu'); 
+    
+    var params = {
+      query : { id: { $in : _paramBody.menuIds } },
       changed : { $addToSet :{ roles :_paramBody.roleId}} 
     }
     let res = await this.service.update.updateMany(params,'Menu'); 
     this.ctx.body = {code:20000, data:res, msg:'success'}
   }
-* */
 }
 
 module.exports = MenuController;

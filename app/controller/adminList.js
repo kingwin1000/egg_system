@@ -30,7 +30,6 @@ class AdminController extends Controller {
       rule : {username:{type:'string',min:5}, password:{type:'password'}}
     }
     let res = await this.service.find.findOne(params,'AdminList');
-    console.log('000',res);
     if(res.code == 20000){
       this.ctx.body =  { code:20000, data:{roles:res.data.roles}, msg:'success'};
     }else{
