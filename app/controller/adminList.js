@@ -1,22 +1,24 @@
 'use strict';
 
 const Controller = require('egg').Controller;
-
+const CryptoJS = require("crypto-js");
 class AdminController extends Controller {
   async login() {
     let params = {
       param : this.ctx.request.body,
       rule : {username:{type:'string',min:5}, password:{type:'password'}}
     }
+    params.param.password = CryptoJS.MD5(params.param.password+this.app.config.keys).toString();
     let res = await this.service.find.findOne(params,'AdminList');
-
-
-    //if(res.data){
+    if(res.data){
+      let _userId = res.data.id;
+      let ipParams = {query:{id:_userId},changed:{loginIp:this.ctx.request.ip}};      
+      let ip = await this.service.update.updateOne(ipParams,'AdminList'); 
       let token = this.app.jwt.sign(params.param, this.app.config.jwt.secret);
       this.ctx.body = { code:20000, data:{token:token}, msg:'success'};
-    //}else{
-    //  this.ctx.body = { code:20001, msg:'用户名或密码错误!'};
-    //}
+    }else{
+      this.ctx.body = { code:20001, msg:'用户名或密码错误!'};
+    }
   };
   async loginout() {
    this.ctx.state.adminInfo = null;
@@ -27,8 +29,13 @@ class AdminController extends Controller {
       param : this.ctx.state.adminInfo,
       rule : {username:{type:'string',min:5}, password:{type:'password'}}
     }
-    //let res = await this.service.find.findOne(params,'AdminList');
-    this.ctx.body =  { code:20000, data:{roles:'403'}, msg:'success'};
+    let res = await this.service.find.findOne(params,'AdminList');
+    console.log('000',res);
+    if(res.code == 20000){
+      this.ctx.body =  { code:20000, data:{roles:res.data.roles}, msg:'success'};
+    }else{
+      this.ctx.body =  { code:20000, data:{roles:[]}, msg:'success'};
+    }
   };
 
   async addAdmin() {
@@ -40,6 +47,7 @@ class AdminController extends Controller {
       },
       param:this.ctx.request.body
     }
+    params.param.password = CryptoJS.MD5(params.param.password+this.app.config.keys).toString();
     let res = await this.service.create.createOne(params,'AdminList');
     this.ctx.body = res;
   };
@@ -72,6 +80,11 @@ class AdminController extends Controller {
       query:_query,
       changed:_paramBody
     };
+    if(params.changed.password){
+      params.changed.password = CryptoJS.MD5(params.changed.password+this.app.config.keys).toString();
+    }else{
+      delete params.changed.password;
+    }
     let res = await this.service.update.updateOne(params,'AdminList'); 
     this.ctx.body = res;
   }
