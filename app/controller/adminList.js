@@ -31,7 +31,11 @@ class AdminController extends Controller {
     }
     let res = await this.service.find.findOne(params,'AdminList');
     if(res.code == 20000){
-      this.ctx.body =  { code:20000, data:{roles:res.data.roles}, msg:'success'};
+      if(this.ctx.state.adminInfo.username == 'admin'){
+        this.ctx.body =  { code:20000, data:{roles:['admin']}, msg:'success'};
+      }else{
+        this.ctx.body =  { code:20000, data:{roles:res.data.roles}, msg:'success'};
+      }  
     }else{
       this.ctx.body =  { code:20000, data:{roles:[]}, msg:'success'};
     }
