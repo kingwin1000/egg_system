@@ -20,6 +20,8 @@ class MenuController extends Controller {
       lean:{lean:true}
     }
     let res = await this.service.find.find(params,'Menu');
+    console.log('111',res);
+
     let data = this.ctx.helper.toTree(res.data);
     res.data = data;
     this.ctx.body = res;
