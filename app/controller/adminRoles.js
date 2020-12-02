@@ -26,6 +26,11 @@ class adminRolesController extends Controller {
   };
   async delRoles(){
     let _paramUrl = this.ctx.params; 
+    var params = {
+      query : {roles:{$elemMatch:{$eq:_paramUrl.id}}},
+      changed : { $pull:{ roles:_paramUrl.id}}
+    }
+    await this.service.update.updateMany(params,'Menu');
     let res = await this.service.delete.delOne({ param:_paramUrl },'AdminRoles');
     this.ctx.body = res;
   };

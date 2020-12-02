@@ -12,7 +12,7 @@ module.exports = appInfo => {
   config.security = {csrf: { enable: false } };  
   config.cors = {origin:'*', allowMethods: 'GET,HEAD,PUT,POST,DELETE',maxAge:60*9999},
   config.validate = {};
-  config.multipart = { mode: 'stream', fileExtensions: [ '.jpg','.gif','.png' ], fileSize: '5mb' };
+  config.multipart = { mode: 'stream', whitelist: ['.jpg','.gif','.png','.jpeg','.mp4','.mp3','.wma'], fileSize: '20mb' };
   
   
   config.middleware = ['errorHandler'];

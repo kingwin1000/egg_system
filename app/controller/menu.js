@@ -20,8 +20,6 @@ class MenuController extends Controller {
       lean:{lean:true}
     }
     let res = await this.service.find.find(params,'Menu');
-    console.log('111',res);
-
     let data = this.ctx.helper.toTree(res.data);
     res.data = data;
     this.ctx.body = res;
@@ -49,17 +47,16 @@ class MenuController extends Controller {
   async updateManyMenu(){
     let _paramBody = this.ctx.request.body;
     var params = {
-      query : {},
+      query : {roles:{$elemMatch:{$eq:_paramBody.roleId}}},
       changed : { $pull :{ roles :_paramBody.roleId}}
     }
     await this.service.update.updateMany(params,'Menu'); 
-    
     var params = {
       query : { id: { $in : _paramBody.menuIds } },
       changed : { $addToSet :{ roles :_paramBody.roleId}} 
     }
-    let res = await this.service.update.updateMany(params,'Menu'); 
-    this.ctx.body = {code:20000, data:res, msg:'success'}
+    let res = await this.service.update.updateMany(params,'Menu');
+    this.ctx.body = {code:20000, data:'res', msg:'success'}
   }
 }
 
