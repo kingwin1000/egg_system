@@ -56,7 +56,7 @@ class MenuController extends Controller {
       changed : { $addToSet :{ roles :_paramBody.roleId}} 
     }
     let res = await this.service.update.updateMany(params,'Menu');
-    this.ctx.body = {code:20000, data:'res', msg:'success'}
+    this.ctx.body = res;
   }
 }
 

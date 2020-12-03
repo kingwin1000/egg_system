@@ -1,7 +1,5 @@
 'use strict';
 
-const { consoleLevel } = require('egg-mock');
-
 const Controller = require('egg').Controller;
 
 class ResourcesController extends Controller {
@@ -22,10 +20,18 @@ class ResourcesController extends Controller {
       let reg = new RegExp(_query.resName,'i');
       _query.resName = {$regex:reg}
     }
-    if(_query.ids){
-      let _ids = _query.ids.split(',');
-      _query.id =  { $in:_ids};
-      delete _query.ids
+    if(_query.groupId){
+      let _ids = await this.service.find.findOne({param:{id:_query.groupId}},'Resources')
+      _ids = _ids.data.resIds;
+      _query.id =  { $in:_ids}; 
+      delete _query.groupId;
+    }
+    if(_query.groupNum){
+      let _ids = await this.service.find.findOne({param:{id:_query.groupNum}},'Resources')
+      _ids = _ids.data.resIds;
+      _query.id =  { $nin:_ids};        
+      _query.resType =  { $nin:3};
+      delete _query.groupNum;
     }
     let params = {      
       sort:{ created:-1 },
@@ -44,6 +50,25 @@ class ResourcesController extends Controller {
     let _param = { id: { $in : _paramBody.ids } };
     let res = await this.service.delete.delMany({ param:_param},'Resources');
     this.ctx.body = res;
+  };
+  async groupRes(){
+    let _query = this.ctx.params; 
+    let _paramBody = this.ctx.request.body;
+    if(_paramBody.type == 'del'){
+      let params = {
+        query : { id: _query.id},
+        changed : { $pull :{ resIds :_paramBody.id}} 
+      }
+      let res = await this.service.update.updateMany(params,'Resources');
+      this.ctx.body = res;      
+    }else if(_paramBody.type == 'add'){
+      let params = {
+        query : { id: _query.id},
+        changed : { $addToSet :{ resIds :_paramBody.id}} 
+      }
+      let res = await this.service.update.updateMany(params,'Resources');
+      this.ctx.body = res;          
+    }
   };
   async updateRes(){
     let _query = this.ctx.params; 

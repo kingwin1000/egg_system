@@ -20,6 +20,8 @@ class UpdateService extends Service {
       return {code:20002, data:null, msg:'params is error'} 
     }
   };
+
+  
   async updatePush({ query,param,rule,pushed},model){
     var errors = '';
     if( rule ){

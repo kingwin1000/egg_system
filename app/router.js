@@ -27,8 +27,9 @@ module.exports = app => {
   router.post('/api/resources',jwt, controller.resources.addRes);
   router.get('/api/resources',jwt, controller.resources.getRes);
   router.delete('/api/resources/:id',jwt, controller.resources.delRes);
-  router.post('/api/delManyRes',jwt, controller.resources.delManyRes);
   router.put('/api/resources/:id',jwt, controller.resources.updateRes);
+  router.post('/api/delManyRes',jwt, controller.resources.delManyRes);
+  router.put('/api/groupRes/:id',jwt, controller.resources.groupRes);
 
   router.post('/api/contentCategories',jwt, controller.contentCategories.addCate);
   router.get('/api/contentCategories',jwt, controller.contentCategories.getCate);
