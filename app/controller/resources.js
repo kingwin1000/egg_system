@@ -1,5 +1,7 @@
 'use strict';
 
+const { consoleLevel } = require('egg-mock');
+
 const Controller = require('egg').Controller;
 
 class ResourcesController extends Controller {
@@ -19,7 +21,12 @@ class ResourcesController extends Controller {
     if(_query.resName){
       let reg = new RegExp(_query.resName,'i');
       _query.resName = {$regex:reg}
-    }    
+    }
+    if(_query.ids){
+      let _ids = _query.ids.split(',');
+      _query.id =  { $in:_ids};
+      delete _query.ids
+    }
     let params = {      
       sort:{ created:-1 },
       param:_query,

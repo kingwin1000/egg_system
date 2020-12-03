@@ -53,7 +53,7 @@ class FindService extends Service {
       let page = Math.ceil(total/limit);
       return {code:20000, totalNum:total, totalPage:page, data:res, msg:'success'}
     } 
-   return {code:20000,data:res, msg:'success'}   
+    return {code:20000,data:res, msg:'success'}   
   };
   async findCount(model){
     let total = await this.ctx.model[model].count();
