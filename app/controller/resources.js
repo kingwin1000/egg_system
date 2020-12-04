@@ -1,7 +1,5 @@
 'use strict';
-
 const Controller = require('egg').Controller;
-
 class ResourcesController extends Controller {
   async addRes() {
     let params = {
@@ -37,19 +35,38 @@ class ResourcesController extends Controller {
       sort:{ created:-1 },
       param:_query,
     }
-    let res = await this.service.find.findByPage(params,'Resources');  
+    let res = await this.service.find.findByPage(params,'Resources');
     this.ctx.body = res;  
   };
   async delRes(){
     let _paramUrl = this.ctx.params;
-    let res = await this.service.delete.delOne({ param:_paramUrl },'Resources');
-    this.ctx.body = res;
+    let params = {
+      sort:{ created:-1 },
+      param:{
+        resType:3,
+        resIds:{ $elemMatch : {$eq:_paramUrl.id}}
+      },
+    };
+    let res = await this.service.find.find(params,'Resources');
+    if(res.data.length > 0){
+      res.type = 'list';
+      this.ctx.body = res;
+    }else{
+      let res = await this.service.delete.delOne({ param:_paramUrl },'Resources');
+      res.type = 'del';
+      this.ctx.body = res;
+    }
   };
   async delManyRes(){
     let _paramBody = this.ctx.request.body;
+    var _params = {
+      query : {resType:3, resIds:{ $in : _paramBody.ids}},
+      changed : { $pullAll :{ resIds : _paramBody.ids}}
+    }
+    await this.service.update.updateMany(_params,'Resources'); 
     let _param = { id: { $in : _paramBody.ids } };
     let res = await this.service.delete.delMany({ param:_param},'Resources');
-    this.ctx.body = res;
+		this.ctx.body = res;
   };
   async groupRes(){
     let _query = this.ctx.params; 
