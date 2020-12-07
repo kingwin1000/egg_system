@@ -8,8 +8,6 @@ class ToolsController extends Controller {
   async upload() {
     let stream = await this.ctx.getFileStream();
     let filename = Date.now() + path.extname(stream.filename).toLocaleLowerCase();
-
-    console.log('sss',filename);
     let target = path.join(this.config.baseDir,'/app/public/resources', filename);
     let writeStream = fs.createWriteStream(target);
     try{

@@ -33,7 +33,6 @@ class ChannelController extends Controller {
   };  
   async addChannelCate(){
 
-    console.log('11111','222222222')
     this.ctx.body = '1111';
     /**
     let params = {
@@ -51,7 +50,6 @@ class ChannelController extends Controller {
   };
   async addChannelSetting(){
 
-    //console.log('11111111===>'QK5HjPjpDa Ecy5kSR4U8)
     let params = {
       query:{ id:'QK5HjPjpDa',layout: { id:'Ecy5kSR4U8'} },
       //pushed:{ $push: { children : this.ctx.request.body}},
