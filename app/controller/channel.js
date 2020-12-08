@@ -34,8 +34,7 @@ class ChannelController extends Controller {
   async addChannelCate(){
     let params = {
       rule : {
-        name:{ type:'string',min:3,max:50 ,required: true},
-        title:{type:'string',required: true}
+        name:{ type:'string',min:3,max:50 ,required: true}
       },
       param:this.ctx.request.body,
     }

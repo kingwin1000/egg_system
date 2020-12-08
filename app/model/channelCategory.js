@@ -5,9 +5,7 @@ module.exports = app => {
   const ChannelCategorySchema = new Schema({
     id:{ type: String, default : shortid.generate, required:true},
     channelId:{ type:String, required: true},
-    type:{ type:Number, required: true, default:0},
     name:{ type:String, required: true},
-    title:{ type:String, required: true},
     orderNo:{ type:Number, default:0},
     resData:[{ type: String}],
     contentData:[{ type: String}],
