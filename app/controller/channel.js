@@ -74,7 +74,7 @@ class ChannelController extends Controller {
       sort:{ created:-1 },
       param:_query,
     }
-    let res = await this.service.find.findByOrder(params,'Resources');  
+    let res = await this.service.find.findByIndex(params,'Resources');  
     this.ctx.body = res;  
   };
   async getChannelContent(){
@@ -92,7 +92,7 @@ class ChannelController extends Controller {
       sort:{ created:-1 },
       param:_query,
     }        
-    let res = await this.service.find.findByOrder(params,'Content');  
+    let res = await this.service.find.findByIndex(params,'Content');  
     this.ctx.body = res;
 
   };

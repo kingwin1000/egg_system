@@ -21,7 +21,7 @@ class UpdateService extends Service {
     }
   };
 
-  
+  /***
   async updatePush({ query,param,rule,pushed},model){
     var errors = '';
     if( rule ){
@@ -38,6 +38,7 @@ class UpdateService extends Service {
       }
     }
   }
+  **/
 }
 
 module.exports = UpdateService;

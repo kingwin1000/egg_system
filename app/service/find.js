@@ -59,7 +59,7 @@ class FindService extends Service {
     let total = await this.ctx.model[model].count();
     return {code:20000,total:total, msg:'success'}  
   };
-  async findByOrder({param,rule,field,sort},model){
+  async findByIndex({param,rule,field,sort},model){
     var param = param ? param : {};
     var sort = sort ? sort : { orderNo:1 };
     var field = field ? field : {}; field._id = false; field.password = false;
@@ -68,10 +68,7 @@ class FindService extends Service {
     param.pageSize = param.pageSize ? param.pageSize :20;
     var page = parseInt(param.page);
     var limit = parseInt(param.pageSize);
-    var skip = (page-1)*limit
-    //delete param.page; 
-    //delete param.pageSize;
-    console.log('=======>',param)
+    var skip = (page-1)*limit;
     if( rule ){
       errors = this.app.validator.validate(rule,param);
     } 
@@ -80,7 +77,7 @@ class FindService extends Service {
     }else{
       let res = await this.ctx.model[model].aggregate([
         {  $project:field  },
-        {  $addFields: { sort : {  $indexOfArray: [ param.orderData, '$id' ] } } },        
+        {  $addFields: { sort : {  $indexOfArray: [ param.orderData, '$id' ] } , index:0} },        
         {  $sort: { sort: -1 } },
         {  $skip:skip  },
         {  $limit:limit },           
